@@ -5,29 +5,10 @@
     <meta name="description" content="Cashyou: Investing starts in a nutshell">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-
+    <script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </head>
 <body>
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId            : 124172418273424,
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v2.10'
-      });
-      FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
 
     <h1>Welcome</h1>
     <p>Welcome to Cash You, the investing application for you.</p>
@@ -36,25 +17,9 @@
 
     <!-- Share button -->
     <div id="shareBtn">Share</div>
-    <script>
-    document.getElementById('shareBtn').onclick = function() {
-      FB.ui({
-        method: 'share',
-        display: 'popup',
-        href: 'https://developers.facebook.com/docs/',
-      }, function(response){});
-    }
-    </script>
 
     <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
 
       <!-- Your like button code -->
       <div class="fb-like"

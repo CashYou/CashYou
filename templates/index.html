@@ -16,11 +16,6 @@
       });
       FB.AppEvents.logPageView();
     };
-      FB.ui(
-        {
-          method: 'share',
-          href: 'https://developers.facebook.com/docs/'
-        }, function(response){});
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
@@ -33,5 +28,24 @@
 
     <h1>Welcome</h1>
     <p>Welcome to Cash You, the investing application for you.</p>
+
+    <p>Click the button below to trigger a Share Dialog</p>
+
+    <div id="shareBtn" class="btn btn-success clearfix">Share</div>
+
+    <p style="margin-top: 50px">
+      <hr />
+      <a class="btn btn-small"  href="https://developers.facebook.com/docs/sharing/reference/share-dialog">Share Dialog Documentation</a>
+    </p>
+
+    <script>
+    document.getElementById('shareBtn').onclick = function() {
+      FB.ui({
+        method: 'share',
+        display: 'popup',
+        href: 'https://developers.facebook.com/docs/',
+      }, function(response){});
+    }
+    </script>
 </body>
 </html>

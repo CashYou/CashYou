@@ -95,6 +95,11 @@
 		function userCallback(response) {
 			console.log(response);
 		}
+    function logout(){
+      FB.logout(function(response)){
+        location.reload();
+      });
+    }
 	</script>
 
 	<header role="banner" id="fh5co-header">
@@ -113,10 +118,7 @@
 		            <li><a href="#" data-nav-section="learn"><span>Learn</span></a></li>
 		            <li><a href="#" data-nav-section="trade"><span>Trade</span></a></li>
                 <li><a href="#" data-nav-section="notifications"><span>Notifications</span></a></li>
-                <li><a onclick="FB.logout(function(response) {
-                            // user is now logged out
-                            location.reload();
-                          });"><span>Logout</span></a></li>
+                <li><a href="javascript:logout()"><span>Logout</span></a></li>
 
 		          </ul>
 		        </div>

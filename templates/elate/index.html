@@ -84,10 +84,6 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
-				FB.Event.subscribe('auth.login', function(response) {
-        	alert("Logged in.. Redirecting you now...");
-        	window.location = "index2.html";
-    		});
 	    };
 
 	    (function(d, s, id){
@@ -98,6 +94,15 @@
 	      fjs.parentNode.insertBefore(js, fjs);
 	    }(document, 'script', 'facebook-jssdk'));
 
+	    var finished_rendering = function() {
+	      console.log("finished rendering plugins");
+	      var spinner = document.getElementById("spinner");
+	    }
+	    FB.Event.subscribe('xfbml.render', finished_rendering);
+			FB.Event.subscribe('auth.login', function(response) {
+				alert("Logged in.. Redirecting you now...");
+				window.location = "index2.html";
+			});
 	  </script>
 	<header role="banner" id="fh5co-header">
 			<div class="container">

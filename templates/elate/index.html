@@ -88,13 +88,10 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
-				if FB.getLoginStatus(function(response)) {
-					if (response.status == 'connected'){
-						var uid = response.authResponse.userID;
-					} else if {
-						var uid = NULL;
-					}
-				}
+				FB.Event.subscribe('auth.login', function(response) {
+        	alert("Logged in.. Redirecting you now...");
+        	window.location = "index2.html";
+    		});
 	    };
 
 	    (function(d, s, id){
@@ -118,8 +115,7 @@
 		        <div class="navbar-header">
 		        	<!-- Mobile Toggle Menu Button -->
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-		         <a class="navbar-brand">	<img src="{{ url_for('static',filename='images/cashew2_logo.png') }}" width="100" height="20" alt="Image" class="img-responsive">
-</a>
+		         <a class="navbar-brand">	<img src="{{ url_for('static',filename='images/cashew2_logo.png') }}" width="100" height="20" alt="Image" class="img-responsive"></a>
 		        </div>
 		        <div id="navbar" class="navbar-collapse collapse">
 		          <ul class="nav navbar-nav navbar-right">
@@ -129,11 +125,9 @@
 		            <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 		            <li><a href="#" data-nav-section="about"><span>About</span></a></li>
 		            <li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
-								<li><a href='#' data-nav-section="login"><span>uid</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>
-			  <!-- </div> -->
 		  </div>
 	</header>
 
@@ -147,14 +141,15 @@
 							<h1 class="to-animate">Cash You.</h1>
 							<h2 class="to-animate">Social Stock Trading Application</h2>
 							<br>
-							<div id="spinner">
-										<div href="{{ url_for('portal') }}, method="POST"
+							<form action='/portal/' method='post'>
+							<div id="spinner" name='Facebook' value='username'>
+										<div
 											class="fb-login-button"
 											data-max-rows="1"
 											data-size="large"
 											data-button-type="continue_with"
-											data-onlogin="log_in"
-											></div>
+										></div>
+									</form>
 						</div>
 					</div>
 				</div>
@@ -166,7 +161,7 @@
 	<section id="fh5co-intro">
 		<div class="container">
 			<div class="row row-bottom-padded-lg">
-				<div class="fh5co-block to-animate" style="background-image: url(images/img_7.jpg);">
+				<div class="fh5co-block to-animate">
 					<div class="overlay-darker"></div>
 					<div class="overlay"></div>
 					<div class="fh5co-text">
@@ -176,7 +171,7 @@
 						<p><a href="#" class="btn btn-primary">Find Friends on Cash You</a></p>
 					</div>
 				</div>
-				<div class="fh5co-block to-animate" style="background-image: url(images/img_8.jpg);">
+				<div class="fh5co-block to-animate">
 					<div class="overlay-darker"></div>
 					<div class="overlay"></div>
 					<div class="fh5co-text">
@@ -186,7 +181,7 @@
 						<p><a href="#" class="btn btn-primary">Start Trading</a></p>
 					</div>
 				</div>
-				<div class="fh5co-block to-animate" style="background-image: url(images/img_10.jpg);">
+				<div class="fh5co-block to-animate">
 					<div class="overlay-darker"></div>
 					<div class="overlay"></div>
 					<div class="fh5co-text">

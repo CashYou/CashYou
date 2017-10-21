@@ -88,6 +88,13 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
+				if FB.getLoginStatus(function(response)) {
+					if (response.status == 'connected'){
+						var uid = response.authResponse.userID;
+					} else if {
+						var uid = NULL;
+					}
+				}
 	    };
 
 	    (function(d, s, id){
@@ -111,7 +118,7 @@
 		        <div class="navbar-header">
 		        	<!-- Mobile Toggle Menu Button -->
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
-		         <a class="navbar-brand" href="index.html">	<img src="{{ url_for('static',filename='images/cashew2_logo.png') }}" width="250" height="50" alt="Image" class="img-responsive">
+		         <a class="navbar-brand">	<img src="{{ url_for('static',filename='images/cashew2_logo.png') }}" width="100" height="20" alt="Image" class="img-responsive">
 </a>
 		        </div>
 		        <div id="navbar" class="navbar-collapse collapse">
@@ -122,6 +129,7 @@
 		            <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 		            <li><a href="#" data-nav-section="about"><span>About</span></a></li>
 		            <li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
+								<li><a href='#' data-nav-section="login"><span>uid</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>
@@ -140,11 +148,12 @@
 							<h2 class="to-animate">Social Stock Trading Application</h2>
 							<br>
 							<div id="spinner">
-										<div
+										<div href="{{ url_for('portal') }}, method="POST"
 											class="fb-login-button"
 											data-max-rows="1"
 											data-size="large"
 											data-button-type="continue_with"
+											data-onlogin="log_in"
 											></div>
 						</div>
 					</div>

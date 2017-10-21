@@ -88,9 +88,13 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
-				FB.Event.subscribe('auth.login', function(response) {
-        		alert('logged in');
-    		});
+				if FB.getLoginStatus(function(response)) {
+					if (response.status == 'connected'){
+						var uid = response.authResponse.userID;
+					} else if {
+						var uid = NULL;
+					}
+				}
 	    };
 
 	    (function(d, s, id){
@@ -125,6 +129,7 @@
 		            <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 		            <li><a href="#" data-nav-section="about"><span>About</span></a></li>
 		            <li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
+								<li><a href='#' data-nav-section="login"><span>uid</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>

@@ -18,8 +18,8 @@ p {
   text-align: center;
 }
 
-.login_button {
-    background-color: #4CAF50;
+#login_button{
+    background-color: #4CAFAA;
     border: none;
     color: white;
     padding: 15px 32px;

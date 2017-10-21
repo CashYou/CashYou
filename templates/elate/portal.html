@@ -78,6 +78,24 @@
 
 	</head>
 	<body>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId            : 124172418273424,
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v2.10'
+			});
+			FB.AppEvents.logPageView();
+			FB.login(function(response) {
+				FB.api('/me', 'profile', userCallback(response));
+			});
+		};
+
+		function userCallback(response) {
+			console.log(response);
+		}
+	</script>
 
 	<header role="banner" id="fh5co-header">
 			<div class="container">

@@ -95,12 +95,6 @@
 		function userCallback(response) {
 			console.log(response);
 		}
-    function logout(){
-      console.log("i am logging out i swear")
-      FB.logout(function(response){
-        location.reload();
-      });
-    }
 	</script>
 
 	<header role="banner" id="fh5co-header">
@@ -119,8 +113,7 @@
 		            <li><a href="#" data-nav-section="learn"><span>Learn</span></a></li>
 		            <li><a href="#" data-nav-section="trade"><span>Trade</span></a></li>
                 <li><a href="#" data-nav-section="notifications"><span>Notifications</span></a></li>
-                <li><a onclick="console.log("hi");"><span>Logout</span></a></li>
-
+                <li><a href='/'><span>Logout</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>

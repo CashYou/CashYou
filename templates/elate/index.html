@@ -88,6 +88,10 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
+				FB.Event.subscribe('auth.login', function(response) {
+        	alert("Logged in.. Redirecting you now...");
+        	window.location = "index2.html";
+    		});
 	    };
 
 	    (function(d, s, id){
@@ -121,7 +125,6 @@
 		            <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
 		            <li><a href="#" data-nav-section="about"><span>About</span></a></li>
 		            <li><a href="#" data-nav-section="contact"><span>Contact</span></a></li>
-								<li><a href='#' data-nav-section="login"><span>uid</span></a></li>
 		          </ul>
 		        </div>
 			    </nav>

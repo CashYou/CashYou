@@ -9,6 +9,8 @@ def index():
 
 @app.route('/portal/', methods=['POST', 'GET'])
 def portal():
+    if request.method == 'POST':
+        user = request.data
     return render_template('index.html')
 
 if __name__ == '__main__':

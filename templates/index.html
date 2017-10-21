@@ -4,6 +4,7 @@
     <title> Cash You </title>
     <meta name="description" content="Cashyou: Investing starts in a nutshell">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
@@ -27,13 +28,13 @@
      }(document, 'script', 'facebook-jssdk'));
   </script>
 
-    <h1 style="color:blue;">Welcome</h1>
+    <h1>Welcome</h1>
     <p>Welcome to Cash You, the investing application for you.</p>
 
     <p>Click the button below to trigger a Share Dialog</p>
 
     <!-- Share button -->
-    <div id="shareBtn" style="color:green;">Share</div>
+    <div id="shareBtn">Share</div>
     <script>
     document.getElementById('shareBtn').onclick = function() {
       FB.ui({

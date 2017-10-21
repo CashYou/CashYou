@@ -16,7 +16,6 @@ window.fbAsyncInit = function() {
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
- $(document).ready(function(){
  document.getElementById('shareBtn').onclick = function() {
    FB.ui({
      method: 'share',
@@ -24,7 +23,6 @@ window.fbAsyncInit = function() {
      href: 'https://developers.facebook.com/docs/',
    }, function(response){});
  }
-});
 
 
  (function(d, s, id) {

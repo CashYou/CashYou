@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import numpy as np
 
 """
 The backend database for the CashYou hackathon project.
@@ -15,8 +16,9 @@ class InvestGroup(object):
 			self.desc = desc
 
 			self.rating = None
-			self.numraters = 0 
-			self.members = [creator]
+			self.numRaters = 0 
+			self.members = np.array([creator])
+			self.maxMembers = 2
 
 			if adv is not None:
 				self.adv = adv
@@ -32,15 +34,19 @@ class InvestGroup(object):
 		try:
 			if (addingMember is False) and (type(member_id) is int and member_id is not None):
 				for num in range(0, len(self.members)):
-					print(type(self.members[num]), type(member_id), num)
-					if self.members[num] == member_id: 
-						members[num] = None
-						print("Hoi")
+					if self.members[num] == member_id:
+						try:
+							np.delete(self.members,num)
+						except:
+							return "Error deleting member."
 				#search for member in list of members & delete
 				return
 			elif (addingMember is True) and (type(member_id) is int and member_id is not None):
-				#Check if # of members is too large (DOS)
-				self.members.append(member_id)
+				#Check if # of members is too large (DDOS)
+				if len(self.members) > self.maxMembers:
+					return "Too many group members. Please form a new group."
+				else:
+					np.append(self.members,member_id)
 				return
 			else:
 				return "Invalid member ID."
@@ -53,50 +59,80 @@ class InvestGroup(object):
 		pass
 
 	def getCurrRating(self):
+		"""Returns current rating."""
 		return self.rating
 
 	def updateRating(self, newRating):
 		"""Returns updated 0 to 5 star rating"""
-		if newRating > 5:
+		if newRating > 5.0:
 			return "Invalid Input"
 
 		if self.rating is None:
-			rating = 0
+			rating = 0.0
 		else:
 			rating = self.rating
 
-		self.rating = (rating * self.numraters + newRating) / (self.numraters + 1)
-		self.numraters = self.numraters + 1
+		self.rating = (rating * self.numRaters + newRating) / (self.numRaters + 1)
+		self.numRaters = self.numRaters + 1
 		return self.rating
 
-	def deleteGroup(self): # FFFFFF - Not deleting object instance currently
-		"""When group is deleted, deletes all associated data or stores it in the stack for later deletion"""
-		del self
-		return
+	# def deleteGroup(self): # FFFFFF - Not deleting object instance currently- handle with groupData manager function?
+	# 	"""When group is deleted, deletes all associated data or stores it in the stack for later deletion"""
+	# 	del self
+	# 	return
 
 class groupMember(object):
-	def __init__(self, username, password, isadmin = False, isdev = False):
-		self.username = username # May be handled by FB?
-		self.password = password
-
-		#permissions
-		self.admin = isadmin #True gives superuser permissions
-		self.dev = isdev
-		self.activeGroups = []
-		self.prevGroups = []
-
+	"""Stores groupmember specific data attributes for each user."""
+	def __init__(self, userID, activeGroups, prevGroups, amountInvested, auth = False, isadmin = False, isdev = False):
+		if auth:
+			#permissions
+			self.advisor = isadmin #True gives superuser permissions
+			user.dev = isdev	   #True gives dev permissions
+			self.invested = amountInvested
+		else:
+			return "You're not logged in! Please log in and try again."
 
 class groupData(object):
-	def __init__(self, name, adv = None, desc = " ", prevPerform = [], ):
+	""" Instantiates all groups. The backbone of our database. """
+	def __init__(self):
+		self.groups = np.array(["A", "B"])
+		pass
+	def launchSite(self):
+		for groupID in self.groups:
+			groupID = InvestGroup("CashYou", 12345, 98765, description)
+			print(groupID.members)
+	def spawnGroup(self):
+		pass
+	def deleteGroup(self):
+		pass
+	def returnActiveGroups(self):
+		return self.groups
+	def returnActiveMembers(self):
+		for group in self.groups:
+			return group.members
+	def lookupGroup(self, groupID): #Return data on a requested group.
 		pass
 
 class userData(object):
-	def __init__(self, userID):
+	def __init__(self, userID, groups):
+		pass
+	def createGroup(self):
+		pass
+	def joinGroup(self):
+		groupMember(12345, self.activeGroups, self.prevGroups, True, False)
+	def leaveGroup(self):
+		pass
+	def becomeAdvisor(self, groupID):
 		pass
 
 if __name__ == "__main__":
 	description = "A group devoted to investing in cashews."
-	A = InvestGroup("CashYou", 12345, 98765, description)
-	A.updateMembers(False, 12345)
-	print(A.members)
+	site = groupData()
+	site.launchSite()
+	print(site.returnActiveMembers())
+
+	# A = InvestGroup("CashYou", 12345, 98765, description)
+	# A.updateMembers(True, 23456)
+	# A.updateMembers(False, 12345)
+	# print(A.members)
 	# A.deleteGroup()

@@ -28,10 +28,9 @@ MAX_MEMBERS = 20
 class InvestGroup(object):
 	""" Class that defines the attributes and operations possible with a single investment group.
 		Creator, members, and advisors are all lists of groupMember s"""
-	def __new__(self, name, creator, members, advisors = None, desc = " ", stocksTracked = []):
-		if type(name) is not str or type(desc) is not str:
+	def __init__(self, name, creator, members, advisors = None, desc = " ", stocksTracked = []):
+		if type(name) is not str and type(desc) is not str:
 			print("Error creating group.")
-			return None
 		else:
 			self.name = name
 			self.desc = desc
@@ -48,17 +47,16 @@ class InvestGroup(object):
 				self.advisors = advisors
 			else:
 				pass # Email advisor/advisor choice code
-		return
 	def __del__(self):
 		return "Deleting group."
 	def __str__(self):
 		final_string = "Members: "
 		for x in self.members:
-			final_string += str(x)
+			final_string += str(x) + "\n"
 		final_string += "\n\nCreator:"
 		for y in self.creator:
 			final_string+=str(y)
-		return final_string
+		return final_string + "\n\n\n"
 
 	def updateMembers(self, addingMember = False, member_id = None, member = None):
 		""" Updates the list of members in a group.
@@ -127,7 +125,7 @@ class groupMember(object):
 		# user.dev = isdev	   #True gives dev permissions
 
 	def __str__(self):
-		full = ("User ID: %s \nCurrent Groups: " % self.id) + str(self.current_groups) + "\nOld Groups" + str(self.old_groups) + "\npreferred stocks:" + str(self.preferredStocks)
+		full = ("User ID: %s \nCurrent Groups: " % self.id) + str(self.current_groups) + "\nOld Groups: " + str(self.old_groups) + "\nPreferred stocks: " + str(self.preferredStocks) + "\n"
 		return full
 
 	#group = {(groupID:(str), adminship:(bool), creatorship:(bool), amountInvested:(int))}
@@ -167,7 +165,7 @@ class groupData(object):
 	def __init__(self):
 		self.groups = dict()
 		self.investGroups = []
-		self.default_group_num = 0
+		self.default_group_num = 1
 		self.advisors = "Advisors"
 		self.members = "Members"
 		self.creators = "Creators"
@@ -179,19 +177,21 @@ class groupData(object):
 			for y in self.groups[x]:
 				if type(self.groups[x][y]) is list:
 					for z in self.groups[x][y]:
-						full_str += str(z)
+						full_str += str(z) + "\n"
 				else:
 					full_str += str(self.groups[x][y]) + "\n"
 		full_str += "\n"
 		for y in self.investGroups:
-			print("we're here for y")
-			print(type(y))
-			full_str += str(y) + "\n"
+			# print("Y is")
+			# print(str(y))
+			# print("HELLO")
+			full_str += str(y) + "\n\n"
 		return full_str
 	def launchSite(self):
 		for groupID in self.groups:
-			self.investGroups.append(InvestGroup(name = groupID, creator = self.groups[groupID][self.creators], members = self.groups[groupID][self.members], advisors = self.groups[groupID][self.advisors],
-				desc = self.groups[groupID][self.descript], stocksTracked = self.groups[groupID][self.stocksTracked]))
+			testNewGroup = InvestGroup(name = groupID, creator = self.groups[groupID][self.creators], members = self.groups[groupID][self.members], advisors = self.groups[groupID][self.advisors],
+				desc = self.groups[groupID][self.descript], stocksTracked = self.groups[groupID][self.stocksTracked])
+			self.investGroups.append(testNewGroup)
 			# print(self.returnActiveMembers())
 			# print(self.returnActiveAdvisors())
 	def spawnGroup(self, name = None, creator = [], membersIn = [], advisorsIn = [], description = "", stocks = []):
@@ -249,16 +249,19 @@ if __name__ == "__main__":
 		temp = groupMember(x, [], [], preferredStocks = [])
 		if temp:
 			test_users.append(temp)
-	pp = pprint.PrettyPrinter(indent=4)
 	site.spawnGroup(creator = [test_users[0]], membersIn = test_users[1:9], advisorsIn = test_users[9:], description = description_test)
+	site.spawnGroup(creator = [test_users[1]], membersIn = test_users[3:7], advisorsIn = test_users[2:3], description = "Hallo darkness my olde friendddd")
+	site.launchSite()
 	print(site)
+	site.deleteGroup('1')
+	print("\n\n POST DELETE:")
+	print(site)
+	print("\n\n RETURN ACTIVE ADVISORS")
+	print(site.returnActiveAdvisors('2'))
+	print("\n\n RETURN ACTIVE MEMBERS:")
+	print(site.returnActiveMembers('2'))
+
 	# print(site)
 	# site.spawnGroup("Test",)
 	# site.launchSite()
 	# print(site.returnActiveMembers())
-
-	# A = InvestGroup("CashYou", 12345, 98765, description)
-	# A.updateMembers(True, 23456)
-	# A.updateMembers(False, 12345)
-	# print(A.members)
-	# A.deleteGroup()

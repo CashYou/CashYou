@@ -16,6 +16,11 @@
       });
       FB.AppEvents.logPageView();
     };
+      FB.ui(
+        {
+          method: 'share',
+          href: 'https://developers.facebook.com/docs/'
+        }, function(response){});
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
@@ -27,6 +32,6 @@
   </script>
 
     <h1>Welcome</h1>
-    <p>Welcome to Cash Youuuuu, the investing application for you.</p>
+    <p>Welcome to Cash You, the investing application for you.</p>
 </body>
 </html>

@@ -88,6 +88,7 @@
 			});
 			FB.AppEvents.logPageView();
 			FB.login(function(response) {
+				console.log('logged in');
 				FB.api('/me', 'profile', userCallback(response));
 			});
 		};

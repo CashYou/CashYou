@@ -107,6 +107,10 @@ class InvestGroup(object):
 	# 	"""When group is deleted, deletes all associated data or stores it in the stack for later deletion"""
 	# 	del self
 	# 	return
+	def addStocksTracked(self, stock):
+		stocksTracked.append(stock)
+	def deleteStocksTracked(self,stock):
+		stocksTracked.remove(stock)
 
 class groupMember(object):
 	"""Stores groupmember specific data attributes for each user.
@@ -226,6 +230,7 @@ class groupData(object):
 		return self.groups[groupID][self.advisors]
 	def lookupGroup(self, groupID): #Return data on a requested group.
 		return self.groups[groupID]
+	# def updateGroupAd
 
 #handles user's information
 #TODO: @Yichen
@@ -260,8 +265,3 @@ if __name__ == "__main__":
 	print(site.returnActiveAdvisors('2'))
 	print("\n\n RETURN ACTIVE MEMBERS:")
 	print(site.returnActiveMembers('2'))
-
-	# print(site)
-	# site.spawnGroup("Test",)
-	# site.launchSite()
-	# print(site.returnActiveMembers())

@@ -12,7 +12,7 @@ class StockGatherer():
         quantl_key_file = open("apikey", "r")
         self.quantl_key = quantl_key_file.read()[0:-1]
         quandl.ApiConfig.api_key = self.quantl_key
-        self.remake = True
+        self.remake = False
         if self.remake:
             self.repullData()
 

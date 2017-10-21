@@ -1,11 +1,11 @@
 window.fbAsyncInit = function() {
-  FB.init({
+  window.FB.init({
     appId            : 124172418273424,
     autoLogAppEvents : true,
     xfbml            : true,
     version          : 'v2.10'
   });
-  FB.AppEvents.logPageView();
+  window.FB.AppEvents.logPageView();
 };
 
 var finished_rendering = function() {
@@ -14,7 +14,7 @@ var spinner = document.getElementById("spinner");
 spinner.removeAttribute("style");
 spinner.removeChild(spinner.childNodes[0]);
 }
-FB.Event.subscribe('xfbml.render', finished_rendering);
+window.FB.Event.subscribe('xfbml.render', finished_rendering);
 
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];

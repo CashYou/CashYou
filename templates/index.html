@@ -7,23 +7,31 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
     <script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}"></script>
 
+    <!-- HTTPS required. HTTP will give a 403 forbidden response -->
+    <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+
 </head>
 <body>
 
     <h1>Welcome</h1>
     <p>Welcome to Cash You, the investing application for you.</p>
 
-    <p>Click the button below to trigger a Share Dialog</p>
-
     <!-- Load Facebook SDK for JavaScript -->
-      <div id="fb-root"></div>
+    <div id="fb-root"></div>
 
-      <!-- Your like button code -->
-      <div class="fb-like"
-        data-href="http://cashyou1.heroku.com/index.html"
-        data-layout="standard"
-        data-action="like"
-        data-show-faces="true">
-      </div>
+    <input value="+1" id="country_code" />
+    <input placeholder="phone number" id="phone_number"/>
+    <button onclick="smsLogin();">Login via SMS</button>
+    <div>OR</div>
+    <input placeholder="email" id="email"/>
+    <button onclick="emailLogin();">Login via Email</button>
+
+    <!-- Your like button code -->
+    <div class="fb-like"
+      data-href="http://cashyou1.heroku.com/index.html"
+      data-layout="standard"
+      data-action="like"
+      data-show-faces="true">
+    </div>
 </body>
 </html>

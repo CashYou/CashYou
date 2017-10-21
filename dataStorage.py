@@ -51,6 +51,14 @@ class InvestGroup(object):
 		return
 	def __del__(self):
 		return "Deleting group."
+	def __str__(self):
+		final_string = "Members: "
+		for x in self.members:
+			final_string += str(x)
+		final_string += "\n\nCreator:"
+		for y in self.creator:
+			final_string+=str(y)
+		return final_string
 
 	def updateMembers(self, addingMember = False, member_id = None, member = None):
 		""" Updates the list of members in a group.
@@ -165,6 +173,21 @@ class groupData(object):
 		self.creators = "Creators"
 		self.descript = "Description"
 		self.stocksTracked = "Tracking"
+	def __str__(self):
+		full_str = ""
+		for x in self.groups:
+			for y in self.groups[x]:
+				if type(self.groups[x][y]) is list:
+					for z in self.groups[x][y]:
+						full_str += str(z)
+				else:
+					full_str += str(self.groups[x][y]) + "\n"
+		full_str += "\n"
+		for y in self.investGroups:
+			print("we're here for y")
+			print(type(y))
+			full_str += str(y) + "\n"
+		return full_str
 	def launchSite(self):
 		for groupID in self.groups:
 			self.investGroups.append(InvestGroup(name = groupID, creator = self.groups[groupID][self.creators], members = self.groups[groupID][self.members], advisors = self.groups[groupID][self.advisors],
@@ -173,6 +196,7 @@ class groupData(object):
 			# print(self.returnActiveAdvisors())
 	def spawnGroup(self, name = None, creator = [], membersIn = [], advisorsIn = [], description = "", stocks = []):
 		#membersin and advnisorsin both lists of member objects
+		# print(advisorsIn)
 		if name and name not in self.groups:
 			self.groups[name] = {self.creators:creator, self.members:membersIn, self.advisors:advisorsIn, self.descript:description, self.stocksTracked:stocks}
 		else:
@@ -226,11 +250,9 @@ if __name__ == "__main__":
 		if temp:
 			test_users.append(temp)
 	pp = pprint.PrettyPrinter(indent=4)
-	for x in test_users:
-		print(x)
-
-	site.spawnGroup(creator = test_users[0], membersIn = test_users[1:9], advisorsIn = [test_users[9:]], description = description_test)
+	site.spawnGroup(creator = [test_users[0]], membersIn = test_users[1:9], advisorsIn = test_users[9:], description = description_test)
 	print(site)
+	# print(site)
 	# site.spawnGroup("Test",)
 	# site.launchSite()
 	# print(site.returnActiveMembers())

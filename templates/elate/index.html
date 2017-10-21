@@ -77,7 +77,7 @@
 	<body>
 		<script>
 	    window.fbAsyncInit = function() {
-	      FB.init({
+	      window.FB.init({
 	        appId            : 124172418273424,
 	        autoLogAppEvents : true,
 	        xfbml            : true,
@@ -98,8 +98,8 @@
 	      console.log("finished rendering plugins");
 	      var spinner = document.getElementById("spinner");
 	    }
-	    FB.Event.subscribe('xfbml.render', finished_rendering);
-			FB.Event.subscribe('auth.login', function(response) {
+	    window.FB.Event.subscribe('xfbml.render', finished_rendering);
+			window.FB.Event.subscribe('auth.login', function(response) {
 				alert("Logged in.. Redirecting you now...");
 				window.location = "index2.html";
 			});

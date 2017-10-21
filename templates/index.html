@@ -32,7 +32,19 @@
 
     <p>Click the button below to trigger a Share Dialog</p>
 
+    <!-- Share button -->
     <div id="shareBtn" style="color:green;">Share</div>
+    <script>
+    document.getElementById('shareBtn').onclick = function() {
+      FB.ui({
+        method: 'share',
+        display: 'popup',
+        href: 'https://developers.facebook.com/docs/',
+      }, function(response){});
+      FB.api('graph.facebook.com', {fields:'last_name'}, function(response){
+        console.log(response);
+      });
+    }
 
     <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
@@ -51,15 +63,5 @@
         data-action="like"
         data-show-faces="true">
       </div>
-
-    <script>
-    document.getElementById('shareBtn').onclick = function() {
-      FB.ui({
-        method: 'share',
-        display: 'popup',
-        href: 'https://developers.facebook.com/docs/',
-      }, function(response){});
-    }
-    </script>
 </body>
 </html>

@@ -88,13 +88,6 @@
 	        version          : 'v2.10'
 	      });
 	      FB.AppEvents.logPageView();
-				if FB.getLoginStatus(function(response)) {
-					if (response.status == 'connected'){
-						var uid = response.authResponse.userID;
-					} else if {
-						var uid = NULL;
-					}
-				}
 	    };
 
 	    (function(d, s, id){

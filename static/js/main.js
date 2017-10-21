@@ -8,7 +8,6 @@ window.fbAsyncInit = function() {
   FB.AppEvents.logPageView();
 };
 
-$(document).ready(function(){
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
    if (d.getElementById(id)) {return;}
@@ -17,6 +16,7 @@ $(document).ready(function(){
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
+ $(document).ready(function(){
  document.getElementById('shareBtn').onclick = function() {
    FB.ui({
      method: 'share',
@@ -24,6 +24,8 @@ $(document).ready(function(){
      href: 'https://developers.facebook.com/docs/',
    }, function(response){});
  }
+});
+
 
  (function(d, s, id) {
    var js, fjs = d.getElementsByTagName(s)[0];
@@ -40,5 +42,3 @@ $(document).ready(function(){
    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
-
-});

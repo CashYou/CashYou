@@ -7,9 +7,9 @@ app = Flask(__name__)
 def index():
     return render_template('elate/index.html')
 
-@app.route('/portal')
+@app.route('/portal/', methods=['POST', 'GET'])
 def portal():
-    pass
+    return render_template('index.html')
 
 if __name__ == '__main__':
      HOST = '0.0.0.0' if 'PORT' in os.environ else '127.0.0.1'

@@ -104,8 +104,7 @@
 	    };
 
 		function statusChangeCallback(response) {
-			console.log(response.status);
-			if (response.status == 'connect') {
+			if (response.status == 'connected') {
 				window.location.href = "index2.html";
 			};
 		};

@@ -8,14 +8,6 @@ window.fbAsyncInit = function() {
   window.FB.AppEvents.logPageView();
 };
 
-var finished_rendering = function() {
-console.log("finished rendering plugins");
-var spinner = document.getElementById("spinner");
-spinner.removeAttribute("style");
-spinner.removeChild(spinner.childNodes[0]);
-}
-window.FB.Event.subscribe('xfbml.render', finished_rendering);
-
 (function(d, s, id){
    var js, fjs = d.getElementsByTagName(s)[0];
    if (d.getElementById(id)) {return;}
@@ -23,6 +15,14 @@ window.FB.Event.subscribe('xfbml.render', finished_rendering);
    js.src = "https://connect.facebook.net/en_US/sdk.js";
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
+
+ var finished_rendering = function() {
+ console.log("finished rendering plugins");
+ var spinner = document.getElementById("spinner");
+ spinner.removeAttribute("style");
+ spinner.removeChild(spinner.childNodes[0]);
+ }
+ window.FB.Event.subscribe('xfbml.render', finished_rendering);
 
 // // initialize Account Kit with CSRF protection
 // AccountKit_OnInteractive = function(){

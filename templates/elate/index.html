@@ -101,8 +101,13 @@
 	    var finished_rendering = function() {
 	      console.log("finished rendering plugins");
 	      var spinner = document.getElementById("spinner");
-	    }
+	    };
 
+		function statusChangeCallback(response) {
+			if (response.status == 'connect') {
+				window.location.href = "index2.html";
+			};
+		};
 	  </script>
 	<header role="banner" id="fh5co-header">
 			<div class="container">

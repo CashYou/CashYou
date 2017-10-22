@@ -2,8 +2,11 @@ from flask import Flask, request
 from flask import render_template
 from bokeh.embed import components
 from stock_gatherer import StockGatherer
+from dataStorage import *
 import os
 app = Flask(__name__)
+
+
 
 @app.route('/')
 def index():
@@ -16,11 +19,28 @@ def portal():
         user = request.data'''
     return render_template('elate/portal.html')
 
-@app.route('/stocks/')
+@app.route('/stocks/', methods=['POST', 'GET'])
 def stocks():
     '''if request.method == 'POST':
         user = request.data'''
-    return render_template('elate/stocks.html')
+    error = None
+    script = ' '
+    if request.method == 'POST':
+        result = request.form
+        for key, val in result.items():
+            if key == 'prod':
+                prod = val
+        if prod == '':
+            error = 'Please choose a group.'
+            script = ' '
+            div = {}
+        else:
+            full_site = pickle.load(open("ALL_GROUPS.p", "rb"))
+            info = full_site.investGroups[prod].getInfo()
+            advisor = full_site.investGroups[prod].getAdvisors()[0].name
+
+    return render_template('elate/stocks.html', prod=prod, error=error,
+                           info=info, advisor=advisor)
 
 @app.route('/result/', methods=['POST', 'GET'])
 def result():

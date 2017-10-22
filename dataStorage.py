@@ -4,6 +4,7 @@ from Constants import *
 import stockGatherer
 import pprint
 import random
+import pickle
 
 """
 The backend database for the CashYou hackathon project.
@@ -100,16 +101,17 @@ class InvestGroup(object):
         """Returns current rating."""
         return self.rating
 
+    def getAdvisors(self):
+        return self.advisors
+
     def updateRating(self, newRating):
         """Returns updated 0 to 5 star rating"""
         if newRating > 5.0:
             return "Invalid Input"
-
         if self.rating is None:
             rating = 0.0
         else:
             rating = self.rating
-
         self.rating = (rating * self.numRaters + newRating) / \
             (self.numRaters + 1)
         self.numRaters = self.numRaters + 1
@@ -133,6 +135,31 @@ class InvestGroup(object):
     def fundsChange(self, amt):
         self.totalCash += amt
 
+    def getInfo(self):
+        tracked = ""
+        for x in range(0, len(self.stocksTracked)):
+            if x > 0:
+                tracked += ", " + self.stocksTracked[x]
+            else:
+                tracked += " " + self.stocksTracked[x]
+        return "We are " + self.name + ". " + self.desc + " We prefer to trade:" + tracked + "."
+
+    #takes in member name
+    def removeMember(self, member):
+        print(member)
+        for x in self.members:
+            print(str(x))
+            print(x.name)
+            if str(x.name) == str(member):
+                x.removeGroup(self.name)
+                self.members.remove(x)
+                return True
+        return None
+
+    #takes in an actual groupMember
+    def addMember(self, member):
+        self.members.append(member)
+        member.addGroup({"groupID":self.name, "adminship":False, "creatorship":False, "amountInvested":0})
 
 class groupMember(object):
     """Stores groupmember specific data attributes for each user.
@@ -142,17 +169,17 @@ class groupMember(object):
     # activeGroups = [{(groupID:(str), adminship:(bool), creatorship:(bool), amountInvested:(int))}]
     #				 [(string,    F/T		, T/F)]
     # same for prevGroups
-
-    def __init__(self, userID, activeGroups, prevGroups, preferredStocks=[]):
+    def __init__(self, userID, name, activeGroups, prevGroups, preferredStocks=[]):
         # permissions
         self.id = userID
+        self.name = name
         self.current_groups = activeGroups
         self.old_groups = prevGroups
         self.preferredStocks = preferredStocks
         # user.dev = isdev	   #True gives dev permissions
 
     def __str__(self):
-        full = ("User ID: %s \nCurrent Groups: " % self.id) + str(self.current_groups) + "\nOld Groups: " + \
+        full = ("User ID: %s \nName: %s \nCurrent Groups: " % (self.id, self.name) ) + str(self.current_groups) + "\nOld Groups: " + \
             str(self.old_groups) + "\nPreferred stocks: " + \
             str(self.preferredStocks) + "\n"
         return full
@@ -198,6 +225,7 @@ class groupData(object):
     """ Instantiates all groups. The backbone of our database. """
 
     def __init__(self):
+        self.all_Users = []
         self.groups = dict()
         self.investGroups = []
         self.default_group_num = 1
@@ -280,7 +308,6 @@ class groupData(object):
                         favored_stocks[z] += 1
                     else:
                         favored_stocks[z] = 1
-        print(favored_stocks)
         top_stocks = []
         highest = 0
         highest_Stock = ""
@@ -290,10 +317,10 @@ class groupData(object):
                     if favored_stocks[x] > highest:
                         highest = favored_stocks[x]
                         highest_Stock = x
-            print(top_stocks)
             top_stocks.append(highest_Stock)
             highest = 0
             highest_Stock = ""
+        self.groups[name][self.stocksTracked] = top_stocks
 
     def deleteGroup(self, groupName):
         if groupName in self.groups:
@@ -325,6 +352,18 @@ class groupData(object):
     def removeGroupAdvisor(self, groupID, oldAdvisorID):
         return
 
+    #name is a string
+    def findMemberByName(self, name):
+        for x in self.members:
+            if str(x.name) == str(name):
+                return x
+
+    def findAdvisorByName(self, name):
+        for x in self.advisors:
+            if str(x.name) == str(name):
+                return x
+
+
 # handles user's information
 # TODO: @Yichen
 
@@ -347,26 +386,50 @@ class userData(object):
 
 
 if __name__ == "__main__":
-    description_test = "A group devoted to investing in cashews."
-    site = groupData()
-    test_users = []
-    test_dict = {0: ["V"], 1: ["MSFT"], 2: ["APPL"], 3: ["V", "MSFT"], 4: [
-        "V", "APPL"], 5: ["MSFT", "APPL"], 6: ["V", "MSFT", "APPL"]}
-    for x in range(0, 10):
-        temp_int = random.randint(0, 6)
-        temp = groupMember(x, [], [], preferredStocks=test_dict[temp_int])
-        if temp:
-            test_users.append(temp)
-    site.spawnGroup(creator=[test_users[0]], membersIn=test_users[1:9],
-                    advisorsIn=test_users[9:], description=description_test)
-    site.spawnGroup(creator=[test_users[1]], membersIn=test_users[3:7],
-                    advisorsIn=test_users[2:3], description="Hallo darkness my olde friendddd")
-    site.launchSite()
-    print(site)
-    site.deleteGroup('1')
-    print("\n\n POST DELETE:")
-    print(site)
-    print("\n\n RETURN ACTIVE ADVISORS")
-    print(site.returnActiveAdvisors('2'))
-    print("\n\n RETURN ACTIVE MEMBERS:")
-    print(site.returnActiveMembers('2'))
+    remake = False
+    if remake:
+        description_test = "A group devoted to investing in cashews."
+        site = groupData()
+        test_users = []
+        test_user_names = ["John", "Sherlock", "Watson", "Holmes", "Lydia", "Nicholas", "Victoria", "Yichen", "Prava", "Gracey", "Emily", "Sam"]
+        test_dict = {0: ["V", "UNH", "TRV"], 1: ["MSFT", "JPM", "PG"], 2: ["APPL", "GE", "UNH"], 3: ["V", "MSFT", "XOM"],
+                     4: ["HD", "GE", "VZ"], 5: ["CVX", "AXP", "BA"], 6: ["V", "MSFT", "APPL"], 7: ["UNH", "PG", "KO"]}
+        for x in range(0, 10):
+            temp_int = random.randint(0, 6)
+            temp = groupMember(x, test_user_names[x], [], [], preferredStocks=test_dict[temp_int])
+            if temp:
+                test_users.append(temp)
+        site.all_Users = test_users
+        site.spawnGroup(name = "Cashoo", creator=[test_users[0]], membersIn=test_users[0:9],
+                        advisorsIn=test_users[9:], description=description_test)
+        site.spawnGroup(name = "Gesundheit", creator=[test_users[1]], membersIn=test_users[3:7],
+                        advisorsIn=test_users[2:3], description="A group dedicated to cashewing in on the stock market.")
+        site.launchSite()
+        pickle.dump(site, open("ALL_GROUPS.p", "wb"))
+    newsite = pickle.load(open("ALL_GROUPS.p", "rb"))
+
+
+
+
+    # print(newsite.investGroups[0].getInfo())
+    # print(newsite.investGroups[1].getInfo())
+    # hi = newsite.investGroups[0].removeMember("John")
+    # if hi:
+    #     print("He's gone, Jim")
+    # else:
+    #     print("wrong name.")
+    # newsite.investGroups[0].addMember(newsite.all_Users[0])
+    # hi = newsite.investGroups[0].removeMember("John")
+    # if hi:
+    #     print("He's gone, Jim")
+    # else:
+    #     print("wrong name.")
+
+    # print(site)
+    # site.deleteGroup('1')
+    # print("\n\n POST DELETE:")
+    # print(site)
+    # print("\n\n RETURN ACTIVE ADVISORS")
+    # print(site.returnActiveAdvisors('2'))
+    # print("\n\n RETURN ACTIVE MEMBERS:")
+    # print(site.returnActiveMembers('2'))

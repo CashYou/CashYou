@@ -81,13 +81,15 @@
 	<script>
 		window.fbAsyncInit = function() {
 			FB.init({
-				appId            : 'appID'
+				appId            : 'appID',
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
+			console.log('logged in');
 			FB.AppEvents.logPageView();
 			FB.login(function(response) {
+				console.log('logged in');
 				FB.api('/me', 'profile', userCallback(response));
 			});
 		};
@@ -139,7 +141,6 @@
 
   <section id="fh5co-testimonials" data-section="connect">
 		<div class="container">
-			<div class="row">
 				<div class="col-md-12 section-heading text-center">
 					<h2 class="to-animate">Social Area</h2>
 					<div class="row">
@@ -147,9 +148,19 @@
 							<h3>Discuss trades and talk about groups with friends.</h3>
 						</div>
 					</div>
-          <div class="row">
-            <p>insert facebook widget here</p>
-				</div>
+          <div class="col-wrapper">
+						<div class="fh5co-block to-animate">
+							<div class="fh5co-text">
+								<h3>Connect with co-investors</h3>
+								<p>Discover investment ideas from people in the same investment groups. </p>
+							</div>
+						</div>
+						<div class="fh5co-block to-animate">
+							<div class="fh5co-text">
+								<h3>Invite from Facebook</h3>
+								<p>Invite your best friends from Facebook to join your venture! </p>
+							</div>
+						</div>
 			</div>
 			</div>
 	</section>

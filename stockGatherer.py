@@ -33,7 +33,7 @@ class StockGatherer():
         plt.show()
         return (stock, dates, endPrices)
 
-    #TODO: GET VARIABLE TIMES
+    #TODO: GET VARIABLE TIMES (stretch, not really useful rn)
     def repullData(self, time = 6):
         """
         Repulls all data from quandl
@@ -64,4 +64,4 @@ class StockGatherer():
 
 if __name__ == "__main__":
     gatherer = StockGatherer()
-    print(gatherer.getData('V'))
+    # print(gatherer.getData('V'))

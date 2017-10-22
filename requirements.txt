@@ -1,1 +1,6 @@
 Flask
+bokeh
+numpy
+requests
+quandl
+datetime

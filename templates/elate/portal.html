@@ -44,10 +44,6 @@
 
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/icomoon.css') }}">
-	<!-- Simple Line Icons -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/simple-line-icons.css') }}">
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/magnific-popup.css') }}">
 	<!-- Bootstrap  -->
@@ -79,24 +75,35 @@
 	</head>
 	<body>
 	<script>
+		console.log('logged in1');
 		window.fbAsyncInit = function() {
+			console.log('logged in2');
 			FB.init({
-				appId            : 'appID',
+				appId            : 124172418273424,
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
-			console.log('logged in');
+			console.log('logged in3');
 			FB.AppEvents.logPageView();
-			FB.login(function(response) {
-				console.log('logged in');
-				FB.api('/me', 'profile', userCallback(response));
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
 			});
+			// FB.login(function(response) {
+			// 	console.log('logged in');
+			// 	FB.api('/me', 'profile', userCallback(response));
+			// });
 		};
 
 		function userCallback(response) {
 			console.log(response);
 		}
+
+		function statusChangeCallback(response) {
+			if (response.status == 'connected') {
+				console.log('connected');
+			};
+		};
 	</script>
 
 	<header role="banner" id="fh5co-header">
@@ -148,14 +155,14 @@
 							<h3>Discuss trades and talk about groups with friends.</h3>
 						</div>
 					</div>
-          <div class="col-wrapper">
-						<div class="fh5co-block to-animate">
+          <div class="row">
+						<div class="col-md-6">
 							<div class="fh5co-text">
 								<h3>Connect with co-investors</h3>
 								<p>Discover investment ideas from people in the same investment groups. </p>
 							</div>
 						</div>
-						<div class="fh5co-block to-animate">
+						<div class="col-md-6">
 							<div class="fh5co-text">
 								<h3>Invite from Facebook</h3>
 								<p>Invite your best friends from Facebook to join your venture! </p>
@@ -209,8 +216,52 @@
 					<h2 class=" left-border to-animate">Trading Center</h2>
 					<div class="row">
 						<div class="col-md-8 subtext to-animate">
-							<h3>Start trading and investing today! It is that easy.</h3>
-						</div>
+              <form action="/result/", method="POST">
+                      <label>
+                      Companies:
+                      <span class="dropdown">
+                          <select class="dropdown-content" name = "prod">
+                              <option value="V"> Visa Inc.</option>
+                              <option value="UNH"> United Health Group Incorporated</option>
+                              <option value="PG"> Proctor and Gamble Company</option>
+                              <option value="KO"> Coca-Cola Company</option>
+                              <option value="GS"> Goldman Sachs Group Inc.</option>
+                              <option value="WMT"> Wal-Mart Stores Inc.</option>
+                              <option value="MRK"> Merck and Company Inc.</option>
+                              <option value="VZ"> Verizon Communications Inc.</option>
+                              <option value="UTX"> United Technologies Corporation</option>
+                              <option value="TRV"> The Travelers Companies Inc.</option>
+                              <option value="UNH"> Walt Disney Company</option>
+                              <option value="BA"> Boeing Company</option>
+                              <option value="GE"> General Electric Company</option>
+                              <option value="HD"> Home Depot Inc.</option>
+                              <option value="MMM"> 3M Company</option>
+                              <option value="PFE"> Pfizer Inc.</option>
+                              <option value="NKE"> Nike Inc.</option>
+                              <option value="MCD"> McDonald's Corporation</option>
+                              <option value="JPM"> JP Morgan Chase and Co.</option>
+                              <option value="INTC"> Intel Corporation</option>
+                              <option value="CSCO"> Cisco Systems Inc.</option>
+                              <option value="CVX"> Chevron Corporation</option>
+                              <option value="CAT"> Caterpillar Inc.</option>
+                              <option value="AXP"> American Express Company</option>
+                              <option value="JNJ"> Johnson and Johnson</option>
+                              <option value="XOM"> Exxon Mobil Corporation</option>
+                              <option value="MSFT"> Microsoft Corporation</option>
+                              <option value="IBM"> International Business Machines Corporation</option>
+                              <option value="AAPL"> Apple Inc.</option>
+                          </select>
+                        </span>
+                        <br><br>
+                      <div id="formsubmitbutton">
+                  <input type="submit" value="Submit" onClick="ButtonClicked()">
+                </div>
+                <div id="buttonreplacement" style="margin-left:30px; display:none;">
+                <img src="http://www.willmaster.com/images/preload.gif" alt="loading...">
+                </div>
+                  <br>
+                  <br>
+      </form>
 					</div>
 				</div>
 			</div>
@@ -267,6 +318,15 @@
 
 	<!-- Main JS (Do not remove) -->
 	<script src="{{ url_for('static', filename='elatejs/main.js') }}"></script>
+
+  <script>
+  function ButtonClicked()
+  {
+     document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
+     document.getElementById("buttonreplacement").style.display = ""; // to display
+		 return true
+	}
+</script
 
 	</body>
 </html>

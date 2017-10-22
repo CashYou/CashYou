@@ -86,12 +86,12 @@
 			FB.login(function(response) {
 				var uid = response.authResponse.userID;
 				var api_str = "/" + uid + "/friends";
-				api_str,
+				FB.api(api_str,
 				function(resp) {
-					if (resp && !resp.error) {
+					if (response && !response.error) {
 						respCallback(resp);
-					}
-				}
+					};
+				});
 			});
 		};
 

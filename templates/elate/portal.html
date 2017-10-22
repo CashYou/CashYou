@@ -75,35 +75,40 @@
 	</head>
 	<body>
 	<script>
-		console.log('logged in1');
 		window.fbAsyncInit = function() {
-			console.log('logged in2');
 			FB.init({
-				appId            : 'appID',
+				appId            : 124172418273424,
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
-			console.log('logged in3');
 			FB.AppEvents.logPageView();
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
+
+			// This clearly works, but Facebook only supports user profile...
+			FB.login(function(response) {
+				var uid = response.authResponse.userID;
+				var api_str = "/" + uid;
+				FB.api(api_str,
+				function(resp) {
+					if (response && !response.error) {
+						respCallback(resp);
+					};
+				});
 			});
-			// FB.login(function(response) {
-			// 	console.log('logged in');
-			// 	FB.api('/me', 'profile', userCallback(response));
-			// });
 		};
 
-		function userCallback(response) {
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		function respCallback(response) {
 			console.log(response);
 		}
 
-		function statusChangeCallback(response) {
-			if (response.status == 'connected') {
-				console.log('connected');
-			};
-		};
 	</script>
 
 	<header role="banner" id="fh5co-header">
@@ -154,22 +159,42 @@
 						<div class="col-md-8 col-md-offset-2 subtext to-animate">
 							<h3>Discuss trades and talk about groups with friends.</h3>
 						</div>
-					</div>
+					</div>											<div class=""
+
           <div class="row">
 						<div class="col-md-6">
 							<div class="fh5co-text">
 								<h3>Connect with co-investors</h3>
 								<p>Discover investment ideas from people in the same investment groups. </p>
+								<div class="col">
+									<div class="row">
+										<div class="user">
+											<p> Mark <span class="subtext">Expert Modelist</span>	</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="fh5co-text">
+									<h3>Share on Facebook</h3>
+									<p>Invite your best friends from Facebook to join your venture! </p>
+									<div
+										class="fb-share-button"
+										data-href="http://cashyou.herokuapp.com"
+										data-layout="button"
+										data-size="large"
+										data-mobile-iframe="true">
+										<a
+											class="fb-xfbml-parse-ignore"
+											target="_blank"
+											href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcashyou.herokuapp.com%2F&amp;src=sdkpreparse">
+											Share
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="fh5co-text">
-								<h3>Invite from Facebook</h3>
-								<p>Invite your best friends from Facebook to join your venture! </p>
-							</div>
-						</div>
-			</div>
-			</div>
+					</div>
 	</section>
 
 	<section id="fh5co-work" data-section="learn">
@@ -324,7 +349,8 @@
   {
      document.getElementById("formsubmitbutton").style.display = "none"; // to undisplay
      document.getElementById("buttonreplacement").style.display = ""; // to display
-  }
+		 return true
+	}
 </script
 
 	</body>

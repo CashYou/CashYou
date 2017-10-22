@@ -85,7 +85,7 @@
 			FB.AppEvents.logPageView();
 			FB.login(function(response) {
 				var uid = response.authResponse.userID;
-				var api_str = "/" + uid + "/email";
+				var api_str = "/" + uid;
 				FB.api(api_str,
 				function(resp) {
 					if (response && !response.error) {

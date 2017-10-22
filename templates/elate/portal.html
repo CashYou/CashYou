@@ -75,16 +75,13 @@
 	</head>
 	<body>
 	<script>
-		console.log('logged in1');
 		window.fbAsyncInit = function() {
-			console.log('logged in2');
 			FB.init({
 				appId            : 124172418273424,
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
-			console.log('logged in3');
 			FB.AppEvents.logPageView();
 			FB.getLoginStatus(function(response) {
 				statusChangeCallback(response);
@@ -95,11 +92,20 @@
 			// });
 		};
 
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
 		function userCallback(response) {
 			console.log(response);
 		}
 
 		function statusChangeCallback(response) {
+			console.log(response.status)
 			if (response.status == 'connected') {
 				console.log('connected');
 			};

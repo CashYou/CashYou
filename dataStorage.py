@@ -285,14 +285,10 @@ class groupData(object):
 		return self.groups[groupID][self.advisors]
 	def lookupGroup(self, groupID): #Return data on a requested group.
 		return self.groups[groupID]
-	def newGroupAdvisors(self, groupID, newAdvisorID, onlyAdmin = False):
+	def newGroupAdvisor(self, groupID, newAdvisorID, onlyAdmin = False):
 		return
 	def removeGroupAdvisor(self, groupID, oldAdvisorID):
 		return
-	#What did I want this for? -Nick
-	# def getGroup(self, groupID):
-	# 	for x in self.groups:
-	# 		if x["groupID"]
 
 #handles user's information
 #TODO: @Yichen

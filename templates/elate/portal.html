@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Cash You &mdash;</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Social Stock Trading Application" />
+	<meta name="keywords" content="stocks, learning, social, facebook" />
+	<meta name="author" content="Cash You Team" />
+
+  <!--
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/icomoon.css') }}">
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/simple-line-icons.css') }}">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/magnific-popup.css') }}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+
+	<!--
+	Default Theme Style
+	You can change the style.css (default color purple) to one of these styles
+
+	1. pink.css
+	2. blue.css
+	3. turquoise.css
+	4. orange.css
+	5. lightblue.css
+	6. brown.css
+	7. green.css
+
+	-->
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+
+
+	<!-- Modernizr JS -->
+	<script src="{{ url_for('static', filename='elatejs/modernizr-2.6.2.min.js') }}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId            : 'appID',
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v2.10'
+			});
+			console.log('logged in');
+			FB.AppEvents.logPageView();
+			FB.login(function(response) {
+				console.log('logged in');
+				FB.api('/me', 'profile', userCallback(response));
+			});
+		};
+
+		function userCallback(response) {
+			console.log(response);
+		}
+	</script>
+
+	<header role="banner" id="fh5co-header">
+			<div class="container">
+				<!-- <div class="row"> -->
+			    <nav class="navbar navbar-default">
+		        <div class="navbar-header">
+		        	<!-- Mobile Toggle Menu Button -->
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		         <a class="navbar-brand">	<img src="{{ url_for('static',filename='images/cashew2_logo.png') }}" width="100" height="20" alt="Image" class="img-responsive"></a>
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		          <ul class="nav navbar-nav navbar-right">
+		            <li class="active"><a href="#" data-nav-section="home"><span>Home</span></a></li>
+		            <li><a href="#" data-nav-section="connect"><span>Connect</span></a></li>
+		            <li><a href="#" data-nav-section="learn"><span>Learn</span></a></li>
+		            <li><a href="#" data-nav-section="trade"><span>Trade</span></a></li>
+                <li><a href="#" data-nav-section="notifications"><span>Notifications</span></a></li>
+                <li><a href='/'><span>Logout</span></a></li>
+		          </ul>
+		        </div>
+			    </nav>
+		  </div>
+	</header>
+
+	<section id="fh5co-home" data-section="home" style="background-image: url("background.jpg");" data-stellar-background-ratio="0.5">
+		<div class="gradient"></div>
+		<div class="container">
+			<div class="text-wrap">
+				<div class="text-inner">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h1 class="to-animate">Welcome</h1>
+							<h2 class="to-animate">Scroll to begin using Cash You.</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slant"></div>
+	</section>
+
+  <section id="fh5co-testimonials" data-section="connect">
+		<div class="container">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Social Area</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>Discuss trades and talk about groups with friends.</h3>
+						</div>
+					</div>
+          <div class="col-wrapper">
+						<div class="fh5co-block to-animate">
+							<div class="fh5co-text">
+								<h3>Connect with co-investors</h3>
+								<p>Discover investment ideas from people in the same investment groups. </p>
+							</div>
+						</div>
+						<div class="fh5co-block to-animate">
+							<div class="fh5co-text">
+								<h3>Invite from Facebook</h3>
+								<p>Invite your best friends from Facebook to join your venture! </p>
+							</div>
+						</div>
+			</div>
+			</div>
+	</section>
+
+	<section id="fh5co-work" data-section="learn">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Learn</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>Learn about stocks and trading.</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-sm">
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="{{ url_for('static',filename='images/happy_stocks.jpg') }}" class="fh5co-project-item image-popup to-animate">
+						<img src="{{ url_for('static',filename='images/happy_stocks.jpg') }}" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>Resource 1</h2>
+						<span>Stocks</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="{{ url_for('static',filename='images/background.jpg') }}" class="fh5co-project-item image-popup to-animate">
+						<img src="{{ url_for('static',filename='images/background.jpg') }}" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>Resource 2</h2>
+						<span>Trading</span>
+						</div>
+					</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<section id="fh5co-services" data-section="trade">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-left">
+					<h2 class=" left-border to-animate">Trading Center</h2>
+					<div class="row">
+						<div class="col-md-8 subtext to-animate">
+							<h3>Start trading and investing today! It is that easy.</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<p> insert our trading widgets and things here</p>
+				</div>
+
+			</div>
+	</section>
+
+
+
+	    <!-- Load Facebook SDK for JavaScript -->
+	    <div id="fb-root"></div>
+
+	<footer id="footer" role="contentinfo">
+		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+		<div class="container">
+			<div class="">
+				<div class="col-md-12 text-center">
+					<p>&copy; Elate Free HTML5. All Rights Reserved. <br>Created by Cash You Incorporated.</p>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="social social-circle">
+						<li><a href="#"><i class="icon-twitter"></i></a></li>
+						<li><a href="#"><i class="icon-facebook"></i></a></li>
+						<li><a href="#"><i class="icon-youtube"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- jQuery -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.min.js') }}"></script>
+	<!-- jQuery Easing -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.easing.1.3.js') }}"></script>
+	<!-- Bootstrap -->
+	<script src="{{ url_for('static', filename='elatejs/bootstrap.min.js') }}"></script>
+	<!-- Waypoints -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.waypoints.min.js') }}"></script>
+	<!-- Stellar Parallax -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.stellar.min.js') }}"></script>
+	<!-- Counter -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.countTo.js') }}"></script>
+	<!-- Magnific Popup -->
+	<script src="{{ url_for('static', filename='elatejs/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='elatejs/magnific-popup-options.js') }}"></script>
+
+
+	<!-- Main JS (Do not remove) -->
+	<script src="{{ url_for('static', filename='elatejs/main.js') }}"></script>
+
+	</body>
+</html>

@@ -35,8 +35,10 @@
     <div class="graphs">
         <br>
         <br>
-    {{ div }}
-    {{ script | safe }}
+        <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.11.0.min.js"></script>
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-compiler-0.11.0.min.js"></script>
+    {{ EMPTY.render()|safe }}
+    {{ script|safe }}
   </div>
     <br>
     <br>

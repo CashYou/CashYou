@@ -40,7 +40,7 @@ def stocks():
             advisor = full_site.investGroups[prod].getAdvisors()[0].name
 
     return render_template('elate/stocks.html', prod=prod, error=error,
-                           info=info, advisor=advisor)
+                           info=info, advisor=advisor, EMPTY=EMPTY)
 
 @app.route('/result/', methods=['POST', 'GET'])
 def result():

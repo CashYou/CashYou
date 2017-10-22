@@ -1,6 +1,9 @@
 Flask
 pandas
 bokeh
+numpy
 statsmodels
 requests
 quandl
+matplotlib
+pickle

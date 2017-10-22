@@ -11,9 +11,9 @@ from bokeh.plotting import figure, output_file, show
 
 class StockGatherer():
     def __init__(self):
-        quantl_key_file = open("apikey", "r")
-        self.quantl_key = quantl_key_file.read()[0:-1]
-        quandl.ApiConfig.api_key = self.quantl_key
+        # quantl_key_file = open("apikey", "r")
+        # self.quantl_key = quantl_key_file.read()[0:-1]
+        # quandl.ApiConfig.api_key = self.quantl_key
         self.remake = False
         if self.remake:
             self.repullData()

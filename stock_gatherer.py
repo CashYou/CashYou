@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from constants import *
 import datetime
+from bokeh.plotting import figure, output_file, show
+
 
 class StockGatherer():
     def __init__(self):
@@ -29,9 +31,20 @@ class StockGatherer():
         for x in fileData:
             dates.append(x[0])
             endPrices.append(x[1])
-        plt.plot(dates, endPrices)
-        plt.show()
+        #plt.plot(dates, endPrices)
+        #plt.show()
         return (stock, dates, endPrices)
+
+    def getGraph(self, stock):
+        """
+        sets up and returns the bokeh graph visualization object
+        """
+        stock, dates, endPrices = self.getData(stock)
+        self.graph1 = figure(title=stock, plot_width=900, plot_height=400, tools=[self.hover, 'pan',
+                                                      'wheel_zoom', 'zoom_in'])
+        self.graph1.line(x=dates, y=endPrices, line_width = 2, line_color = 'blue')
+        return self.graph1
+
 
     #TODO: GET VARIABLE TIMES
     def repullData(self, time = 6):

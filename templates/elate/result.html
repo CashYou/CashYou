@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {{prod}}
+        </title>
+    </head>
+<body>
+    <div class="deal">
+      <span>Stock Histories for {{prod}}</span> <br>
+    </div>
+
+    <span class="price">
+      <div class="selections">
+        {%if error%}
+          <p>{{error}}</p>
+        {%else%}
+          <p>Company: {{prod}} </p>
+        {%endif%}
+          <form action='/'>
+              <input type="submit" value="Go Back">
+          </form>
+      </div>
+    </span>
+
+    <div class="graphs">
+        <br>
+        <br>
+    {{ div | safe }}
+    {{ script | safe }}
+  </div>
+    <br>
+    <br>
+    <br>
+
+</html>

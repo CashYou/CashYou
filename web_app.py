@@ -26,18 +26,18 @@ def stocks():
     if request.method == 'POST': # and "testButton" in request.POST:
         result = request.form
         for key, val in result.items():
-            if key == 'prod':
-                prod = val
-        if prod == '':
+            if key == 'group':
+                group = val
+        if group == '':
             error = 'Please choose a group.'
             script = ' '
             div = {}
         else:
             full_site = pickle.load(open("ALL_GROUPS.p", "rb"))
-            info = full_site.investGroups[prod].getInfo()
-            advisor = full_site.investGroups[prod].getAdvisors()[0].name
+            info = full_site.investGroups[int(group)].getInfo()
+            advisor = full_site.investGroups[int(group)].getAdvisors()[0].name
 
-    return render_template('elate/stocks.html', prod=prod, error=error,
+    return render_template('elate/stocks.html', group=group, error=error,
                            info=info, advisor=advisor)
 
 @app.route('/result/', methods=['POST', 'GET'])

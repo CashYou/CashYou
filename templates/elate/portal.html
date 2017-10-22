@@ -293,7 +293,25 @@
 			<div class="row">
 				<p> insert our trading widgets and things here</p>
 				</div>
-
+				<form action="/stocks/", method="POST">
+								<label>
+								Public groups:
+								<span class="dropdown">
+										<select class="dropdown-content" name = "group">
+												<option value="0">Cashew</option>
+												<option value="1">Gesundheit</option>
+										</select>
+									</span>
+									<br><br>
+								<div id="formsubmitbutton">
+						<input type="submit" name = "testButton" value="Submit" onClick="ButtonClicked()">
+					</div>
+					<div id="buttonreplacement" style="margin-left:30px; display:none;">
+					<img src="http://www.willmaster.com/images/preload.gif" alt="loading...">
+					</div>
+						<br>
+						<br>
+				</form>
 			</div>
 	</section>
 

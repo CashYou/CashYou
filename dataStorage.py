@@ -43,7 +43,6 @@ class InvestGroup(object):
             self.members = members
             self.creator = creator
             self.stocksTracked = stocksTracked
-
             if advisors is not None:
                 self.advisors = advisors
             else:
@@ -65,6 +64,7 @@ class InvestGroup(object):
             final_string += (x + "\n")
         return final_string + "\n\n\n"
 
+    #OUTDATED
     def updateMembers(self, addingMember=False, member_id=None, member=None):
         """ Updates the list of members in a group.
                 addingMember = boolean, member_id = (something, as long as it's consistent)
@@ -90,12 +90,6 @@ class InvestGroup(object):
             return
         except:
             return "Error updating member list."
-
-    def updatePrevPerform(self):  # FFFFFFF - Update with code
-        """Updates previous performance with new value"""
-        # Nick's code
-        # N/A for this weekend
-        pass
 
     def getCurrRating(self):
         """Returns current rating."""
@@ -144,6 +138,27 @@ class InvestGroup(object):
                 tracked += " " + self.stocksTracked[x]
         return "We are " + self.name + ". " + self.desc + " We prefer to trade:" + tracked + "."
 
+    def memberToAdvisor(self, membName):
+        for x in self.members:
+            if str(x.name) == str(membName):
+                for y in x.current_groups:
+                    if y[name] == self.name:
+                        y[adminship] = True
+                        self.advisors.append(x)
+                        self.members.remove(x)
+                        break
+
+
+    def advisorToMember(self, adminName):
+        for x in self.advisors:
+            if str(x.name) == str(membName):
+                for y in x.current_groups:
+                    if y[name] == self.name:
+                        y[adminship] = False
+                        self.members.append(x)
+                        self.advisors.remove(x)
+                        break
+
     #takes in member name
     def removeMember(self, member):
         print(member)
@@ -160,6 +175,7 @@ class InvestGroup(object):
     def addMember(self, member):
         self.members.append(member)
         member.addGroup({"groupID":self.name, "adminship":False, "creatorship":False, "amountInvested":0})
+
 
 class groupMember(object):
     """Stores groupmember specific data attributes for each user.
@@ -207,7 +223,7 @@ class groupMember(object):
             if self.current_groups[x][GROUP_ID] == groupID:
                 self.current_groups[x][GROUP_ID] = changedGroupID
 
-    def updateGroupAdminship(self, groupID, adminship):
+    def updateGroupAdvisorship(self, groupID, adminship):
         for x in range(0, len(self.current_groups)):
             if self.current_groups[x][GROUP_ID] == groupID:
                 self.current_groups[x][ADMINSHIP] = adminship
@@ -219,7 +235,6 @@ class groupMember(object):
                     self.current_groups[x][AMOUNT_INVESTED] += deltaInvested
                 else:
                     print("Invalid investment request.")
-
 
 class groupData(object):
     """ Instantiates all groups. The backbone of our database. """
@@ -353,36 +368,10 @@ class groupData(object):
         return
 
     #name is a string
-    def findMemberByName(self, name):
-        for x in self.members:
+    def findUserByName(self, name):
+        for x in self.all_Users:
             if str(x.name) == str(name):
                 return x
-
-    def findAdvisorByName(self, name):
-        for x in self.advisors:
-            if str(x.name) == str(name):
-                return x
-
-
-# handles user's information
-# TODO: @Yichen
-
-
-class userData(object):
-    def __init__(self, userID, groups):
-        pass
-
-    def createGroup(self):
-        pass
-
-    def joinGroup(self):
-        groupMember(12345, self.activeGroups, self.prevGroups, True, False)
-
-    def leaveGroup(self):
-        pass
-
-    def becomeAdvisor(self, groupID):
-        pass
 
 
 if __name__ == "__main__":
@@ -406,9 +395,8 @@ if __name__ == "__main__":
                         advisorsIn=test_users[2:3], description="A group dedicated to cashewing in on the stock market.")
         site.launchSite()
         pickle.dump(site, open("ALL_GROUPS.p", "wb"))
+
     newsite = pickle.load(open("ALL_GROUPS.p", "rb"))
-
-
 
 
     # print(newsite.investGroups[0].getInfo())

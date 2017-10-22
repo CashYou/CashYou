@@ -6,8 +6,6 @@ from dataStorage import *
 import os
 app = Flask(__name__)
 
-
-
 @app.route('/')
 def index():
     # change lager
@@ -25,7 +23,7 @@ def stocks():
         user = request.data'''
     error = None
     script = ' '
-    if request.method == 'POST':
+    if request.method == 'POST': # and "testButton" in request.POST:
         result = request.form
         for key, val in result.items():
             if key == 'prod':
@@ -47,7 +45,7 @@ def result():
     error = None
     script = ''
     div = {}
-    if request.method == 'POST':
+    if request.method == 'POST': # and "testButton" in request.POST:
         result = request.form
         for key, val in result.items():
             if key == 'prod':

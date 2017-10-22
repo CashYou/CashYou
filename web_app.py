@@ -16,11 +16,11 @@ def portal():
         user = request.data'''
     return render_template('elate/portal.html')
 
-@app.route('/stocks/')
-    def stocks():
-        '''if request.method == 'POST':
-            user = request.data'''
-        return render_template('elate/stocks.html')
+# @app.route('/stocks/')
+# def stocks():
+#     '''if request.method == 'POST':
+#         user = request.data'''
+#     return render_template('elate/stocks.html')
 
 @app.route('/result/', methods=['POST', 'GET'])
 def result():

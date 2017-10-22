@@ -36,7 +36,7 @@ def result():
             gatherer = StockGatherer()
             plot = gatherer.getGraph(prod)
             script, div = components(plot)
-    return render_template("elate/index.html", prod=prod,
+    return render_template("elate/result.html", prod=prod,
                          error=error, script=script, div=div)
 
 if __name__ == '__main__':

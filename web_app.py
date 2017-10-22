@@ -35,10 +35,17 @@ def stocks():
         else:
             full_site = pickle.load(open("ALL_GROUPS.p", "rb"))
             info = full_site.investGroups[int(group)].getInfo()
+            groupname = full_site.investGroups[int(group)].name
             advisor = full_site.investGroups[int(group)].getAdvisors()[0].name
 
     return render_template('elate/stocks.html', group=group, error=error,
-                           info=info, advisor=advisor)
+                           info=info, advisor=advisor, groupname=groupname)
+
+#TODO: Implement this
+@app.route('/join/', methods=['POST', 'GET'])
+def join():
+    pass
+
 
 @app.route('/result/', methods=['POST', 'GET'])
 def result():

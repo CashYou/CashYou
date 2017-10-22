@@ -3,7 +3,7 @@ import pickle
 import os.path
 from pathlib import Path
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from Constants import *
 import datetime
 
@@ -29,8 +29,8 @@ class StockGatherer():
         for x in fileData:
             dates.append(x[0])
             endPrices.append(x[1])
-        plt.plot(dates, endPrices)
-        plt.show()
+        #plt.plot(dates, endPrices)
+        #plt.show()
         return (stock, dates, endPrices)
 
     #TODO: GET VARIABLE TIMES (stretch, not really useful rn)

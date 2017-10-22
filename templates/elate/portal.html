@@ -84,8 +84,14 @@
 			});
 			FB.AppEvents.logPageView();
 			FB.login(function(response) {
-				console.log('logged in');
-				FB.api('/me', 'profile', userCallback(response));
+				var uid = response.authResponse.userID;
+				var api_str = "/" + uid + "/friends";
+				api_str,
+				function(resp) {
+					if (resp && !resp.error) {
+						respCallback(resp);
+					}
+				}
 			});
 		};
 
@@ -97,7 +103,7 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 
-		function userCallback(response) {
+		function respCallback(response) {
 			console.log(response);
 		}
 

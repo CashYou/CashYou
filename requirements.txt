@@ -1,1 +1,5 @@
 Flask
+bokeh
+numpy
+requests
+quandl

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {{prod}}
+        </title>
+        <link
+           href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css"
+           rel="stylesheet" type="text/css">
+       <link
+           href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css"
+           rel="stylesheet" type="text/css">
+
+       <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+       <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+    </head>
+<body>
+    <div class="deal">
+      <span>Stock Histories for {{prod}}</span> <br>
+    </div>
+
+    <span class="price">
+      <div class="selections">
+        {%if error%}
+          <p>{{error}}</p>
+        {%else%}
+          <p>Company: {{prod}} </p>
+        {%endif%}
+          <form action='/'>
+              <input type="submit" value="Go Back">
+          </form>
+      </div>
+    </span>
+
+    <div class="graphs">
+        <br>
+        <br>
+    {{ div | safe }}
+    {{ script | safe }}
+  </div>
+    <br>
+    <br>
+    <br>
+
+</html>

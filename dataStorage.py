@@ -34,11 +34,9 @@ class InvestGroup(object):
 		else:
 			self.name = name
 			self.desc = desc
-
 			self.rating = None
 			self.numRaters = 0
 			self.totalCash = 0
-
 			self.members = members
 			self.creator = creator
 			self.stocksTracked = stocksTracked
@@ -86,6 +84,7 @@ class InvestGroup(object):
 	def updatePrevPerform(self): # FFFFFFF - Update with code
 		"""Updates previous performance with new value"""
 		#Nick's code
+		#N/A for this weekend
 		pass
 	def getCurrRating(self):
 		"""Returns current rating."""
@@ -111,12 +110,23 @@ class InvestGroup(object):
 		stocksTracked.append(stock)
 	def deleteStocksTracked(self,stock):
 		stocksTracked.remove(stock)
+	def currentFunds(self):
+		curr_funds = 0
+		for z in [self.members, self.advisors]:
+			for x in self.members:
+				for y in x.current_groups:
+					if y["groupID"] == self.name:
+						curr_funds+= y["amountInvested"]
+		self.totalCash = curr_funds
+	def fundsChange(self, amt):
+		self.totalCash+=amt
+
 
 class groupMember(object):
 	"""Stores groupmember specific data attributes for each user.
 	Each member will have an unique id that we will assign.
 	TODO: CHANGE AUTHORIZE TO OUTSIDE OF THIS"""
-	#List of idcts that give information
+	#List of dicts that give information
 	# activeGroups = [{(groupID:(str), adminship:(bool), creatorship:(bool), amountInvested:(int))}]
 	#				 [(string,    F/T		, T/F)]
 	#same for prevGroups
@@ -186,9 +196,6 @@ class groupData(object):
 					full_str += str(self.groups[x][y]) + "\n"
 		full_str += "\n"
 		for y in self.investGroups:
-			# print("Y is")
-			# print(str(y))
-			# print("HELLO")
 			full_str += str(y) + "\n\n"
 		return full_str
 	def launchSite(self):
@@ -208,17 +215,65 @@ class groupData(object):
 			self.default_group_num+=1
 			self.groups[name] = {self.creators:creator, self.members:membersIn, self.advisors:advisorsIn, self.descript:description, self.stocksTracked:stocks}
 
+		#TODO: CHECK TO SEE IF DICT ALREADY IN MEMBERS THING AND UPDATE MEMBER IF IT IS
 		for x in membersIn:
 			dict_to_add = {GROUP_ID:name, ADMINSHIP:False, CREATORSHIP:False, AMOUNT_INVESTED:0.0}
-			x.addGroup(dict_to_add)
+			for a in x.current_groups:
+				if a[GROUP_ID] == name:
+					pass
+				else:
+					x.addGroup(dict_to_add)
+			for b in x.old_groups:
+				if a[GROUP_ID] == name:
+					x.old_groups.remove(b)
 		for y in advisorsIn:
 			dict_to_add = {GROUP_ID:name, ADMINSHIP:True, CREATORSHIP:False, AMOUNT_INVESTED:0.0}
-			y.addGroup(dict_to_add)
+			for a in y.current_groups:
+				if a[GROUP_ID] == name:
+					pass
+				else:
+					y.addGroup(dict_to_add)
+			for b in y.old_groups:
+				if a[GROUP_ID] == name:
+					y.old_groups.remove(b)
 		for z in creator:
 			dict_to_add = {GROUP_ID:name, ADMINSHIP:False, CREATORSHIP:True, AMOUNT_INVESTED:0.0}
-			z.addGroup(dict_to_add)
+			for a in z.current_groups:
+				if a[GROUP_ID] == name:
+					pass
+				else:
+					z.addGroup(dict_to_add)
+			for b in x.old_groups:
+				if a[GROUP_ID] == name:
+					z.old_groups.remove(b)
+
+		favored_stocks = dict()
+		for y in [self.creators, self.members, self.advisors]:
+			for x in self.groups[name][y]:
+				for z in x.preferredStocks:
+					if z in favored_stocks:
+						favored_stocks[z] += 1
+					else:
+						favored_stocks[z] = 1
+		top_stocks = []
+		highest = 0
+		highest_Stock = ""
+		for z in range(0, 3):
+			for x in favored_stocks:
+				if favored_stocks[x] < highest:
+					highest = favored_stocks[x]
+					highest_Stock = x
+			top_stocks.append(highest_Stock)
+			highest = 0
+			highest_Stock = ""
 	def deleteGroup(self, groupName):
-		self.groups.pop(groupName, None)
+		if groupName in self.groups:
+			for x in [self.members, self.creators, self.advisors]:
+				for y in self.groups[groupName][x]:
+					y.removeGroup(groupName)
+			self.groups.pop(groupName, None)
+		else:
+			print("Invalid group.")
 	def returnActiveGroups(self):
 		allGroups = []
 		for x in self.groups:
@@ -230,7 +285,10 @@ class groupData(object):
 		return self.groups[groupID][self.advisors]
 	def lookupGroup(self, groupID): #Return data on a requested group.
 		return self.groups[groupID]
-	# def updateGroupAd
+	def newGroupAdvisor(self, groupID, newAdvisorID, onlyAdmin = False):
+		return
+	def removeGroupAdvisor(self, groupID, oldAdvisorID):
+		return
 
 #handles user's information
 #TODO: @Yichen
@@ -251,7 +309,7 @@ if __name__ == "__main__":
 	site = groupData()
 	test_users = []
 	for x in range(0, 10):
-		temp = groupMember(x, [], [], preferredStocks = [])
+		temp = groupMember(x, [], [], preferredStocks = ["V"])
 		if temp:
 			test_users.append(temp)
 	site.spawnGroup(creator = [test_users[0]], membersIn = test_users[1:9], advisorsIn = test_users[9:], description = description_test)

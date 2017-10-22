@@ -83,13 +83,10 @@
 				version          : 'v2.10'
 			});
 			FB.AppEvents.logPageView();
-			FB.getLoginStatus(function(response) {
-				statusChangeCallback(response);
+			FB.login(function(response) {
+				console.log('logged in');
+				FB.api('/me', 'profile', userCallback(response));
 			});
-			// FB.login(function(response) {
-			// 	console.log('logged in');
-			// 	FB.api('/me', 'profile', userCallback(response));
-			// });
 		};
 
 		(function(d, s, id){
@@ -104,12 +101,6 @@
 			console.log(response);
 		}
 
-		function statusChangeCallback(response) {
-			console.log(response.status)
-			if (response.status == 'connected') {
-				console.log('connected');
-			};
-		};
 	</script>
 
 	<header role="banner" id="fh5co-header">

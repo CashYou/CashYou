@@ -77,12 +77,14 @@
 	<script>
 		window.fbAsyncInit = function() {
 			FB.init({
-				appId            : 124172418273424,
+				appId            : 'appID',
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
 			FB.AppEvents.logPageView();
+
+			// This clearly works, but Facebook only supports user profile...
 			FB.login(function(response) {
 				var uid = response.authResponse.userID;
 				var api_str = "/" + uid;
@@ -163,6 +165,15 @@
 							<div class="fh5co-text">
 								<h3>Connect with co-investors</h3>
 								<p>Discover investment ideas from people in the same investment groups. </p>
+								<div class="col">
+									<div class="row">
+										<div class="user to-animate">
+											<figure><img src={{ url_for('static',filename='images/person2.jpg') }} alt="Person"></figure>
+											<p>
+											John Doe <span class="subtext">Experienced Trader</span>
+											</p>
+										</div>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-6">

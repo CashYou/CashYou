@@ -1,1 +1,5 @@
 Flask
+pandas
+bokeh
+statsmodels
+requests

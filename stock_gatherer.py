@@ -7,6 +7,7 @@ import numpy as np
 from Constants import *
 import datetime
 from bokeh.plotting import figure, output_file, show
+from bokeh.models import DatetimeTickFormatter
 
 
 class StockGatherer():
@@ -42,6 +43,12 @@ class StockGatherer():
         stock, dates, endPrices = self.getData(stock)
         self.graph1 = figure(title=stock, plot_width=900, plot_height=400)
         self.graph1.line(x=dates, y=endPrices, line_width = 2, line_color = 'blue')
+        self.graph1.xaxis.formatter=DatetimeTickFormatter(
+                hours = ['%d %B %Y'],
+                days = ['%d %B %Y'],
+                months = ['%d %B %Y'],
+                years = ['%d %B %Y'],
+            )
         return self.graph1
 
 

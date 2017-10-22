@@ -4,7 +4,7 @@ import os.path
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import *
+from Constants import *
 import datetime
 from bokeh.plotting import figure, output_file, show
 
@@ -40,8 +40,7 @@ class StockGatherer():
         sets up and returns the bokeh graph visualization object
         """
         stock, dates, endPrices = self.getData(stock)
-        self.graph1 = figure(title=stock, plot_width=900, plot_height=400, tools=[self.hover, 'pan',
-                                                      'wheel_zoom', 'zoom_in'])
+        self.graph1 = figure(title=stock, plot_width=900, plot_height=400)
         self.graph1.line(x=dates, y=endPrices, line_width = 2, line_color = 'blue')
         return self.graph1
 

@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
+from bokeh.embed import components
 from stock_gatherer import StockGatherer
 import os
 app = Flask(__name__)
@@ -35,13 +36,11 @@ def result():
             gatherer = StockGatherer()
             plot = gatherer.getGraph(prod)
             script, div = components(plot)
-    return render_template("result.html", prod=prod,
+    return render_template("elate/result.html", prod=prod,
                          error=error, script=script, div=div)
 
 if __name__ == '__main__':
-    HOST = '0.0.0.0' if 'PORT' in os.environ else '127.0.0.1'
-    PORT = int(os.environ.get('PORT', 5000))
-    app.run(host=HOST, port=PORT)
-    '''
+    #HOST = '0.0.0.0' if 'PORT' in os.environ else '127.0.0.1'
+    #PORT = int(os.environ.get('PORT', 5000))
+    #app.run(host=HOST, port=PORT)
     app.run()
-    '''

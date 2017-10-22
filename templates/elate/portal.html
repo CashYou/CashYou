@@ -44,10 +44,6 @@
 
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/icomoon.css') }}">
-	<!-- Simple Line Icons -->
-	<link rel="stylesheet" href="{{ url_for('static',filename='css/simple-line-icons.css') }}">
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="{{ url_for('static',filename='css/magnific-popup.css') }}">
 	<!-- Bootstrap  -->
@@ -79,24 +75,35 @@
 	</head>
 	<body>
 	<script>
+		console.log('logged in1');
 		window.fbAsyncInit = function() {
+			console.log('logged in2');
 			FB.init({
 				appId            : 'appID',
 				autoLogAppEvents : true,
 				xfbml            : true,
 				version          : 'v2.10'
 			});
-			console.log('logged in');
+			console.log('logged in3');
 			FB.AppEvents.logPageView();
-			FB.login(function(response) {
-				console.log('logged in');
-				FB.api('/me', 'profile', userCallback(response));
+			FB.getLoginStatus(function(response) {
+				statusChangeCallback(response);
 			});
+			// FB.login(function(response) {
+			// 	console.log('logged in');
+			// 	FB.api('/me', 'profile', userCallback(response));
+			// });
 		};
 
 		function userCallback(response) {
 			console.log(response);
 		}
+
+		function statusChangeCallback(response) {
+			if (response.status == 'connected') {
+				console.log('connected');
+			};
+		};
 	</script>
 
 	<header role="banner" id="fh5co-header">

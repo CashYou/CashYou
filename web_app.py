@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # change lager
-    return render_template('elate/portal.html')
+    return render_template('elate/index.html')
 
 @app.route('/portal/')
 def portal():

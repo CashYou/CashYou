@@ -6,4 +6,3 @@ statsmodels
 requests
 quandl
 matplotlib
-os
